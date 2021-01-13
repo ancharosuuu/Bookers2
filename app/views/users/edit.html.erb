@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="low">
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= pluralize(@user.errors.count, "error prohibited this obj from being saved:") %>
+        <br><%= message %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<h1>User info</h1>
+<%= form_with model: @user, local:true do |f| %>
+  <p>Name</p>
+  <%= f.text_field :name %>
+  <p>Image</p>
+  <%= f.attachment_field :profile_image %>
+  <p>Introduction</p>
+  <%= f.text_area :introduction %>
+  <%= f.submit 'Update User' %>
+<% end %>
+  
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+ <div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-3">
+     <p id="notice">
+ <%=  notice %>
+</p>
+      <%= render "user_info", user:@user %>
+
+
+ <h2>New Book</h2>
+<!-- form_with部分 -->
+<%= form_with model:@book, local:true do |f| %>
+<% if @book.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li>
+         <%= pluralize(@user.errors.count, "error prohibited this obj from being saved:
+") %>
+         <%= message %>
+         </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+  <p>Title</p>
+  <%= f.text_field :title %>
+
+  <p>Option</p>
+  <%= f.text_area :body %>
+
+  <p class="submit"><%= f.submit 'Create Book' %></p>
+<% end %>
+</div>
+
+<div class="col-md-9">
+  <h1>Books</h1>
+ <table class="table table-hover table-inverse">
+   <thead>
+    <tr>
+   <th>Title</th>
+   <th>Body</th>
+   <th></th>
+   <th></th>
+    </tr>
+   </thead>
+    <tbody>
+   <% @books.each do |book| %>
+     <tr>
+   <td><%= link_to book_path(book.id) do %>
+   <%= book.title %>
+   <% end %>
+   </td>
+   <td><%= book.body %></td>
+   <td><%= link_to "Edit", edit_book_path(book.id),class: "btn btn-sm btn-sucsess" %></td>
+   <td><%= link_to "Destroy", book_path(book.id),class: "btn btn-sm btn-danger", method: :delete,
+        data: {confirm: 'Are you sure?'} %></td>
+   </tr>
+ <% end %>
+    </tbody>
+  </table>
+  </div>
+
+  </div>
+ </div>
+</div>
