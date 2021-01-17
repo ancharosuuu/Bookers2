@@ -7,7 +7,7 @@
       <%= render "users/user_info", user:@user %>
 
 
- <h2>New Book</h2>
+ <h2>New book</h2>
 <!-- form_with部分 -->
 <%= form_with model:@book_new, local:true do |f| %>
 <% if @book_new.errors.any? %>
@@ -32,7 +32,7 @@
 
 <div class="col-md-8 offset-md-1">
 
-<h2>Book ditale</h2>
+<h2>Book detail</h2>
 <table class="table table-hover table-inverse">
   <tr>
     <th></th>
@@ -43,7 +43,7 @@
   </tr>
   <tr>
   <td>
-    <%= link_to users_path(@user)  do %>
+    <%= link_to user_path(@user)  do %>
     <%= attachment_image_tag @user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg"%>
     <br><%= @user.name %>
     <% end %>
@@ -56,12 +56,15 @@
   <td>
      <%= @book.body %>
   </td>
+    <% if @book.user == current_user %>
   <td>
     <%= link_to "Edit", edit_book_path(@book.id),class: "btn btn-sm btn-success" %>
+   
   </td>
   <td><%= link_to "Destroy", book_path(@book.id),class: "btn btn-sm btn-danger", method: :delete,
         data: {confirm: 'Are you sure?'} %>
   </td>
+    <% end %>
 </tr>
 
 </table>
